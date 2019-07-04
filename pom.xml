@@ -9,6 +9,9 @@
 
     <name>p3</name>
     <url>http://maven.apache.org</url>
+    <description>
+        Projet 3 [DA Java] - OpenClassrooms
+    </description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,4 +1,4 @@
 package com.hogwai.p3.mode;
 
-public class Mode {
+public abstract class Mode {
 }
