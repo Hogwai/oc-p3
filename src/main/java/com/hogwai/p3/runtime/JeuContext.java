@@ -85,4 +85,8 @@ public class JeuContext {
     public void lancerPartie() {
         this.strategyMode.lancerMode();
     }
+
+    public void rejouer(){
+        //TODO
+    }
 }

@@ -27,7 +27,7 @@ public class ChallengerHandler extends Mode implements StrategyMode {
 
     @Override
     public void lancerMode() {
-        LOGGER.info("Lancement du jeu");
+        LOGGER.info(String.format("Lancement du mode %s", ModeName.CHALLENGER));
         IAHandler ia = new IAHandler();
         UtilisateurHandler utilisateur = new UtilisateurHandler();
 
@@ -45,8 +45,8 @@ public class ChallengerHandler extends Mode implements StrategyMode {
     @Override
     public void lancerBoucleMode(UtilisateurHandler utilisateur, IAHandler ia) {
         boolean win = false;
-        for (int i = 1; i < Integer.parseInt(super.getNbEssais()); i++) {
-            List<String> clues = ia.compareCombiToPropo(utilisateur.verifyUserInputInt());
+        for (int i = 0; i < Integer.parseInt(super.getNbEssais()); i++) {
+            List<String> clues = ia.compareCombiTo(utilisateur.sanitizeUserInputInt());
             if (clues.get(0).equals("=") && clues.stream().allMatch(e -> e.equals(clues.get(0)))) {
                 win = true;
                 LOGGER.info(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i));
@@ -66,6 +66,7 @@ public class ChallengerHandler extends Mode implements StrategyMode {
         } else {
             System.out.print("Dommage ! Vous n'avez pas réussi trouvé la bonne combinaison: ");
             ia.getCombinaison().forEach(System.out::print);
+            LOGGER.info("Défaite de l'utilisateur");
         }
     }
 }

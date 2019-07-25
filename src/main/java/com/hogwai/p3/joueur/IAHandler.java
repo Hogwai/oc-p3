@@ -13,12 +13,12 @@ public class IAHandler extends Joueur {
         int range = Integer.parseInt(ResourceBundle.getBundle("config").getString("nbCombinaison"));
         List<Integer> listDigitsCombi = new LinkedList<>();
         for (int i = 0; i < range; i++) {
-            listDigitsCombi.add(i, new Random().nextInt(10));
+            listDigitsCombi.add(i, new Random().nextInt(10 - 1) + 1);
         }
         super.setCombinaison(listDigitsCombi);
     }
 
-    public List<String> compareCombiToPropo(int combinaison) {
+    public List<String> compareCombiTo(int combinaison) {
         List<String> result = new ArrayList<>();
         List<Integer> listDigitsCombi = super.getListFromInt(combinaison);
         for (int i = 0; i < listDigitsCombi.size(); i++) {

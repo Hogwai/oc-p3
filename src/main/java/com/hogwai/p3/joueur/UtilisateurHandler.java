@@ -18,29 +18,31 @@ public class UtilisateurHandler extends Joueur {
         return super.combinaison;
     }
 
-    public int verifyUserInputInt() {
+    public int sanitizeUserInputInt() {
         Scanner sc;
-        boolean checkSaisie = false;
-        String propTemp = "";
+        boolean checkSaisie;
+        Integer propTemp = 0;
         do {
             System.out.println("Veuillez saisir votre proposition:");
             sc = new Scanner(System.in);
-            if (sc.hasNext()) {
-                propTemp = sc.next();
-                if (propTemp.matches("^(?=[0-9]+)\\d{4}$")) {
+            if (sc.hasNextInt()) {
+                propTemp = sc.nextInt();
+                if (propTemp.toString().length() == Integer.parseInt(super.nbCombinaison)
+                        && propTemp.toString().matches("^([1-9]+)")) {
                     checkSaisie = true;
                 } else {
                     checkSaisie = false;
-                    System.out.printf("Votre proposition doit être composée de %s chiffres.%n", super.nbCombinaison);
-                    LOGGER.error("Proposition de l'utilisateur au mauvais format.");
+                    System.out.printf("Votre proposition doit être composée de %s chiffres compris entre 1 et 9.%n", super.nbCombinaison);
+                    LOGGER.warn("Proposition de l'utilisateur au mauvais format.");
                 }
             } else {
                 checkSaisie = false;
-                System.out.printf("Votre proposition doit être composée de %s chiffres.%n", super.nbCombinaison);
-                LOGGER.error("Proposition de l'utilisateur au mauvais format.");
+                System.out.printf("Votre proposition doit être composée de %s chiffres compris entre 1 et 9.%n", super.nbCombinaison);
+                LOGGER.warn("Proposition de l'utilisateur au mauvais format.");
             }
         } while (!checkSaisie);
-        this.setCombinaison(super.getListFromInt(Integer.parseInt(propTemp)));
-        return Integer.parseInt(propTemp);
+
+        this.setCombinaison(super.getListFromInt(propTemp));
+        return propTemp;
     }
 }

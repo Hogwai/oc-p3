@@ -21,11 +21,11 @@ public abstract class Joueur {
     }
 
     public List<Integer> getListFromInt(int combinaison) {
-        LinkedList<Integer> stack = new LinkedList<>();
+        LinkedList<Integer> list = new LinkedList<>();
         while (combinaison > 0) {
-            stack.push(combinaison % 10);
+            list.push(combinaison % 10);
             combinaison /= 10;
         }
-        return stack;
+        return list;
     }
 }

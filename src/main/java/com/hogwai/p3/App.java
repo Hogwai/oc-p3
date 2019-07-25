@@ -12,7 +12,7 @@ public class App {
 
     public static void main(String[] args) {
         JeuContext jeu = new JeuContext();
-        switch ( jeu.demanderChoixMode() ) {
+        switch (jeu.demanderChoixMode()) {
             case 1:
                 jeu.setStrategyMode(new ChallengerHandler());
                 LOGGER.info("Mode choisi: Challenger");
