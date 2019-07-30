@@ -29,25 +29,20 @@ public class ChallengerHandler extends Mode implements StrategyMode {
     public void lancerMode() {
         LOGGER.info(String.format("Lancement du mode %s", ModeName.CHALLENGER));
         IAHandler ia = new IAHandler();
-        UtilisateurHandler utilisateur = new UtilisateurHandler();
-
-        ia.genererCombinaison();
+        UtilisateurHandler utilisateur = new UtilisateurHandler(ModeName.CHALLENGER);
         System.out.println("Le jeu va se lancer dans 3 secondes...");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            LOGGER.error(String.format("Une erreur est survenue lors du décompte avant le lancement de la boucle de jeu: %s", ex));
-            Thread.currentThread().interrupt();
-        }
+        this.timer(3000);
         this.lancerBoucleMode(utilisateur, ia);
     }
 
     @Override
     public void lancerBoucleMode(UtilisateurHandler utilisateur, IAHandler ia) {
         boolean win = false;
+        List<String> clues;
+        ia.generateRandCombi();
         for (int i = 0; i < Integer.parseInt(super.getNbEssais()); i++) {
-            List<String> clues = ia.compareCombiTo(utilisateur.sanitizeUserInputInt());
-            if (clues.get(0).equals("=") && clues.stream().allMatch(e -> e.equals(clues.get(0)))) {
+            clues = ia.compareCombiTo(utilisateur.getUserInputInt());
+            if (this.gagnerPartie(clues)){
                 win = true;
                 LOGGER.info(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i));
                 break;
@@ -63,9 +58,11 @@ public class ChallengerHandler extends Mode implements StrategyMode {
         if (win) {
             System.out.print("Bravo ! Vous avez trouvé la bonne combinaison: ");
             ia.getCombinaison().forEach(System.out::print);
+            System.out.println();
         } else {
             System.out.print("Dommage ! Vous n'avez pas réussi trouvé la bonne combinaison: ");
             ia.getCombinaison().forEach(System.out::print);
+            System.out.println();
             LOGGER.info("Défaite de l'utilisateur");
         }
     }

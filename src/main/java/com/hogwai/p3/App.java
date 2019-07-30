@@ -12,23 +12,38 @@ public class App {
 
     public static void main(String[] args) {
         JeuContext jeu = new JeuContext();
-        switch (jeu.demanderChoixMode()) {
-            case 1:
-                jeu.setStrategyMode(new ChallengerHandler());
-                LOGGER.info("Mode choisi: Challenger");
-                break;
-            case 2:
-                jeu.setStrategyMode(new DefenseurHandler());
-                LOGGER.info("Mode choisi: Défenseur");
-                break;
-            case 3:
-                jeu.setStrategyMode(new DuelHandler());
-                LOGGER.info("Mode choisi: Duel");
-                break;
-            default:
-                LOGGER.error("Valeur inattendue lors du choix du mode.");
-        }
-        jeu.afficherMenu();
-        jeu.lancerPartie();
+        do {
+            if(jeu.getPlayAgainChoice().equals("1")){
+                jeu.afficherMenu();
+                jeu.lancerPartie();
+            } else {
+                switch ( jeu.demanderChoixMode() ) {
+                    case 1:
+                        jeu.setStrategyMode(new ChallengerHandler());
+                        if (LOGGER.isDebugEnabled()) LOGGER.debug("Mode choisi: Challenger");
+                        break;
+                    case 2:
+                        jeu.setStrategyMode(new DefenseurHandler());
+                        LOGGER.info("Mode choisi: Défenseur");
+                        break;
+                    case 3:
+                        jeu.setStrategyMode(new DuelHandler());
+                        LOGGER.info("Mode choisi: Duel");
+                        break;
+                    default:
+                        LOGGER.error("Valeur inattendue lors du choix du mode.");
+                }
+                jeu.afficherMenu();
+                jeu.lancerPartie();
+            }
+            jeu.rejouer();
+            if (jeu.getPlayAgainChoice().equals("1")
+                    || jeu.getPlayAgainChoice().equals("2")) {
+                jeu.setPlayAgain(true);
+            } else {
+                jeu.setPlayAgain(false);
+            }
+        } while (jeu.isPlayAgain());
+
     }
 }

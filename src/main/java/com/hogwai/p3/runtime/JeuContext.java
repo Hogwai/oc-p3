@@ -15,9 +15,13 @@ public class JeuContext {
     private String nbCombinaison;
     private String nbEssais;
     private boolean modeDev;
+    private boolean playAgain;
+    private String playAgainChoice;
 
     public JeuContext() {
         ResourceBundle properties = this.getProperties();
+        this.playAgain = false;
+        this.playAgainChoice = "2";
         this.nbCombinaison = properties.getString("nbCombinaison");
         this.nbEssais = properties.getString("nbEssais");
         this.modeDev = properties.getString("modeDev").equals("true");
@@ -43,6 +47,22 @@ public class JeuContext {
             return null;
         }
         return ResourceBundle.getBundle("config");
+    }
+
+    public void setPlayAgain(boolean playAgain) {
+        this.playAgain = playAgain;
+    }
+
+    public boolean isPlayAgain() {
+        return playAgain;
+    }
+
+    public void setPlayAgainChoice(String playAgainChoice) {
+        this.playAgainChoice = playAgainChoice;
+    }
+
+    public String getPlayAgainChoice() {
+        return playAgainChoice;
     }
 
     public void afficherMenu() {
@@ -87,6 +107,31 @@ public class JeuContext {
     }
 
     public void rejouer(){
-        //TODO
+        Scanner sc;
+        boolean checkSaisie;
+        do {
+            System.out.println("#============================");
+            System.out.println("Que voulez-vous faire ?");
+            System.out.println("1. Rejouer au même mode");
+            System.out.println("2. Lancer un autre mode");
+            System.out.println("3. Quitter");
+            System.out.print("Votre choix: ");
+            sc = new Scanner(System.in);
+            if (sc.hasNext()) {
+                this.playAgainChoice = sc.next();
+                if (this.playAgainChoice.length() == 1
+                        && this.playAgainChoice.matches("^[1-3]+$")) {
+                    checkSaisie = true;
+                } else {
+                    checkSaisie = false;
+                    System.out.println("Votre choix doit être compris entre 1 et 3.");
+                    LOGGER.warn("Mauvaise saisie lors du choix de fin de jeu.");
+                }
+            } else {
+                checkSaisie = false;
+                System.out.println("Votre choix doit être compris entre 1 et 3.");
+                LOGGER.warn("Mauvaise saisie lors du choix de fin de jeu.");
+            }
+        } while (!checkSaisie);
     }
 }
