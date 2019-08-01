@@ -1,8 +1,11 @@
 package com.hogwai.p3;
 
+import com.hogwai.p3.joueur.IAHandler;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -25,6 +28,7 @@ public class AppTest
      */
     public static Test suite()
     {
+
         return new TestSuite( AppTest.class );
     }
 
@@ -33,6 +37,10 @@ public class AppTest
      */
     public void testApp()
     {
-        assertTrue( true );
+        /*IAHandler test = new IAHandler();
+        List<String> testList = test.getListFromString("test");
+        testList.forEach(System.out::println);*/
+        System.getProperty("java.classpath");
+
     }
 }

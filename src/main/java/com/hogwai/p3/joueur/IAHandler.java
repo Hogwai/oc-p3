@@ -12,35 +12,13 @@ public class IAHandler extends Joueur {
     }
 
     /**
-     * Génère une combinaison aléatoire
-     */
-    public void generateRandCombi() {
-        LinkedList<Integer> listDigitsCombi = new LinkedList<>();
-        for (int i = 0; i < Integer.parseInt(super.nbCombinaison); i++) {
-            listDigitsCombi.add(i, new Random().nextInt(10 - 1) + 1);
-        }
-        super.setCombinaison(listDigitsCombi);
-    }
-
-    /**
-     *
+     * Compare la combinaison de l'IA à celle passée en paramètre et
+     * renvoie des indices
      * @param combinaison Combinaison à comparer avec celle de l'IA
-     *
      * @return Chaîne de caractère contenant les indices générés par l'IA
      */
     public List<String> compareCombiTo(int combinaison) {
-        List<String> result = new ArrayList<>();
-        List<Integer> listDigitsCombi = super.getListFromInt(combinaison);
-        for (int i = 0; i < listDigitsCombi.size(); i++) {
-            if (super.combinaison.get(i).compareTo(listDigitsCombi.get(i)) > 0) {
-                result.add("+");
-            } else if (super.combinaison.get(i).compareTo(listDigitsCombi.get(i)) < 0) {
-                result.add("-");
-            } else {
-                result.add("=");
-            }
-        }
-        return result;
+        return this.getClues(this.getIntFromList(this.combinaison), combinaison);
     }
 
     /**
@@ -56,5 +34,50 @@ public class IAHandler extends Joueur {
                 this.combinaison.set(i, this.combinaison.get(i) - 1);
             }
         }
+    }
+
+    /**
+     * Génère une combinaison aléatoire et
+     * la stocke dans l'attribut combinaison
+     */
+    public void generateRandCombi() {
+        this.combinaison = new LinkedList<>();
+        for (int i = 0; i < Integer.parseInt(super.nbCombinaison); i++) {
+            this.combinaison.add(i, new Random().nextInt(10 - 1) + 1);
+        }
+    }
+
+    /**
+     * Génère une combinaison aléatoire et la retourne
+     * @return Combinaison
+     */
+    public Integer returnRandCombiInt(){
+        LinkedList<Integer> listDigitsCombi = new LinkedList<>();
+        for (int i = 0; i < Integer.parseInt(super.nbCombinaison); i++) {
+            listDigitsCombi.add(i, new Random().nextInt(10 - 1) + 1);
+        }
+        return this.getIntFromList(listDigitsCombi);
+    }
+
+    /**
+     * Compare une solution à une combinaison et renvoie des indices
+     * @param solution Solution à comparer avec la combinaison
+     * @param combinaison Combinaison à comparer avec la solution
+     * @return Chaîne de caractère contenant les indices générés par l'IA
+     */
+    public List<String> getClues(int solution, int combinaison) {
+        List<String> result = new ArrayList<>();
+        List<Integer> listDigitsSolu = this.getListFromInt(solution);
+        List<Integer> listDigitsCombi = this.getListFromInt(combinaison);
+        for (int i = 0; i < listDigitsSolu.size(); i++) {
+            if (listDigitsSolu.get(i).compareTo(listDigitsCombi.get(i)) > 0) {
+                result.add("+");
+            } else if (listDigitsSolu.get(i).compareTo(listDigitsCombi.get(i)) < 0) {
+                result.add("-");
+            } else {
+                result.add("=");
+            }
+        }
+        return result;
     }
 }

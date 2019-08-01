@@ -7,8 +7,8 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 
-public class ChallengerHandler extends Mode implements StrategyMode {
-    private static final Logger LOGGER = LogManager.getLogger(ChallengerHandler.class.getName());
+public class ChallengerStrategy extends Mode implements StrategyMode {
+    private static final Logger LOGGER = LogManager.getLogger(ChallengerStrategy.class.getName());
 
     @Override
     public void afficherMenuMode() {
@@ -26,17 +26,7 @@ public class ChallengerHandler extends Mode implements StrategyMode {
     }
 
     @Override
-    public void lancerMode() {
-        LOGGER.info(String.format("Lancement du mode %s", ModeName.CHALLENGER));
-        IAHandler ia = new IAHandler();
-        UtilisateurHandler utilisateur = new UtilisateurHandler(ModeName.CHALLENGER);
-        System.out.println("Le jeu va se lancer dans 3 secondes...");
-        this.timer(3000);
-        this.lancerBoucleMode(utilisateur, ia);
-    }
-
-    @Override
-    public void lancerBoucleMode(UtilisateurHandler utilisateur, IAHandler ia) {
+    public void jouer(UtilisateurHandler utilisateur, IAHandler ia) {
         boolean win = false;
         List<String> clues;
         ia.generateRandCombi();

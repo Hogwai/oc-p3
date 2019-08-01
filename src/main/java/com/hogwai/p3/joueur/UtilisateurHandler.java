@@ -11,8 +11,11 @@ import org.apache.logging.log4j.LogManager;
 public class UtilisateurHandler extends Joueur {
     private static final Logger LOGGER = LogManager.getLogger(UtilisateurHandler.class.getName());
 
+    /**
+     * Constructeur surchargé
+     * @param mode
+     */
     public UtilisateurHandler(ModeName mode) {
-        //Constructeur par défaut
         this.mode = mode;
     }
 
@@ -22,19 +25,12 @@ public class UtilisateurHandler extends Joueur {
     }
 
     private String getStrFromMode(){
-        String strMode = "";
-        switch ( this.mode ){
-            case CHALLENGER:
-                strMode = "proposition";
-                break;
-            case DEFENSEUR:
-                strMode = "solution";
-                break;
-            case DUEL:
-                //TODO
-                break;
+        if(this.mode.equals(ModeName.CHALLENGER)
+                || this.mode.equals(ModeName.DUEL)){
+            return "proposition";
+        } else {
+            return "solution";
         }
-        return strMode;
     }
 
     public int getUserInputInt() {

@@ -15,8 +15,6 @@ public abstract class Joueur {
     protected String nbEssais = ResourceBundle.getBundle(CONFIG).getString("nbEssais");
     protected boolean modeDev = ResourceBundle.getBundle(CONFIG).getString("modeDev").equals("true");
 
-
-
     public ModeName getMode(){
         return this.mode;
     }
@@ -47,10 +45,14 @@ public abstract class Joueur {
     }
 
     public Integer getCombiInt(){
-        String combiStr = "";
-        for (Integer combiNb: this.combinaison) {
-            combiStr = combiStr.concat(combiNb.toString());
+        return this.getIntFromList(this.combinaison);
+    }
+
+    public Integer getIntFromList(LinkedList<Integer> listToBeParsed){
+        String nbStr = "";
+        for (Integer nbList: listToBeParsed) {
+            nbStr = nbStr.concat(nbList.toString());
         }
-        return Integer.parseInt(combiStr);
+        return Integer.parseInt(nbStr);
     }
 }

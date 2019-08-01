@@ -1,5 +1,8 @@
 package com.hogwai.p3.runtime;
 
+import com.hogwai.p3.joueur.IAHandler;
+import com.hogwai.p3.joueur.UtilisateurHandler;
+import com.hogwai.p3.mode.Mode;
 import com.hogwai.p3.mode.StrategyMode;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +27,8 @@ public class JeuContext {
         this.playAgainChoice = "2";
         this.nbCombinaison = properties.getString("nbCombinaison");
         this.nbEssais = properties.getString("nbEssais");
-        this.modeDev = properties.getString("modeDev").equals("true");
+        //this.modeDev = modeDev ? modeDev : Boolean.parseBoolean(properties.getString("modeDev"));
+        this.modeDev = Boolean.parseBoolean(properties.getString("modeDev"));
         LOGGER.info("Lancement d'une instance de jeu");
         LOGGER.info(String.format("Nombre de chiffres dans une combinaison: %s", this.nbCombinaison));
         LOGGER.info(String.format("Nombre d'essais: %s", this.nbEssais));
@@ -47,6 +51,10 @@ public class JeuContext {
             return null;
         }
         return ResourceBundle.getBundle("config");
+    }
+
+    public void setModeDev(boolean modeDev) {
+        this.modeDev = modeDev;
     }
 
     public void setPlayAgain(boolean playAgain) {
@@ -102,14 +110,29 @@ public class JeuContext {
         return choix;
     }
 
-    public void lancerPartie() {
-        this.strategyMode.lancerMode();
+    public void lancerPartie(Mode.ModeName mode) {
+        LOGGER.info(String.format("Lancement du mode %s", mode));
+        IAHandler ia = new IAHandler();
+        UtilisateurHandler utilisateur = new UtilisateurHandler(mode);
+        System.out.println("Le jeu va se lancer dans 3 secondes...");
+        this.timer(3000);
+        this.strategyMode.jouer(utilisateur, ia);
+        //this.strategyMode.lancerMode();
     }
 
+    public void timer(Integer time){
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException ex) {
+            LOGGER.warn(String.format("Une erreur est survenue lors du décompte avant le lancement de la boucle de jeu: %s", ex));
+            Thread.currentThread().interrupt();
+        }
+    }
     public void rejouer(){
         Scanner sc;
         boolean checkSaisie;
         do {
+            System.out.println();
             System.out.println("#============================");
             System.out.println("Que voulez-vous faire ?");
             System.out.println("1. Rejouer au même mode");
