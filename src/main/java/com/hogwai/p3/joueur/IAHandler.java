@@ -42,6 +42,7 @@ public class IAHandler extends Joueur {
      */
     public void generateRandCombi() {
         this.combinaison = new LinkedList<>();
+
         for (int i = 0; i < Integer.parseInt(super.nbCombinaison); i++) {
             this.combinaison.add(i, new Random().nextInt(10 - 1) + 1);
         }
@@ -53,6 +54,7 @@ public class IAHandler extends Joueur {
      */
     public Integer returnRandCombiInt(){
         LinkedList<Integer> listDigitsCombi = new LinkedList<>();
+
         for (int i = 0; i < Integer.parseInt(super.nbCombinaison); i++) {
             listDigitsCombi.add(i, new Random().nextInt(10 - 1) + 1);
         }
@@ -67,8 +69,10 @@ public class IAHandler extends Joueur {
      */
     public List<String> getClues(int solution, int combinaison) {
         List<String> result = new ArrayList<>();
+
         List<Integer> listDigitsSolu = this.getListFromInt(solution);
         List<Integer> listDigitsCombi = this.getListFromInt(combinaison);
+
         for (int i = 0; i < listDigitsSolu.size(); i++) {
             if (listDigitsSolu.get(i).compareTo(listDigitsCombi.get(i)) > 0) {
                 result.add("+");

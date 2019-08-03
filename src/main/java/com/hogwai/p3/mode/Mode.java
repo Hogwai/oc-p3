@@ -26,7 +26,6 @@ public abstract class Mode {
     }
 
 
-
     public enum ModeName {
         CHALLENGER("Challenger"),
         DEFENSEUR("Défenseur"),

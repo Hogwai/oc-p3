@@ -21,26 +21,24 @@ public class JeuContext {
     private boolean playAgain;
     private String playAgainChoice;
 
-    public JeuContext() {
+    public JeuContext(Boolean modeDev) {
         ResourceBundle properties = this.getProperties();
         this.playAgain = false;
         this.playAgainChoice = "2";
         this.nbCombinaison = properties.getString("nbCombinaison");
         this.nbEssais = properties.getString("nbEssais");
-        //this.modeDev = modeDev ? modeDev : Boolean.parseBoolean(properties.getString("modeDev"));
-        this.modeDev = Boolean.parseBoolean(properties.getString("modeDev"));
+        this.modeDev = modeDev ? modeDev : Boolean.parseBoolean(properties.getString("modeDev"));
         LOGGER.info("Lancement d'une instance de jeu");
-        LOGGER.info(String.format("Nombre de chiffres dans une combinaison: %s", this.nbCombinaison));
-        LOGGER.info(String.format("Nombre d'essais: %s", this.nbEssais));
-        LOGGER.info(String.format("Mode développeur: %s", this.modeDev ? "activé" : "désactivé"));
+        if (this.modeDev) {
+            LOGGER.debug(String.format("Nombre de chiffres dans une combinaison: %s", this.nbCombinaison));
+            LOGGER.debug(String.format("Nombre d'essais: %s", this.nbEssais));
+            LOGGER.debug(String.format("Mode développeur: %s", this.modeDev ? "activé" : "désactivé"));
+        }
+
     }
 
     public void setStrategyMode(StrategyMode strategyMode) {
         this.strategyMode = strategyMode;
-    }
-
-    public StrategyMode getStrategyMode() {
-        return strategyMode;
     }
 
     public ResourceBundle getProperties() {
@@ -57,6 +55,10 @@ public class JeuContext {
         this.modeDev = modeDev;
     }
 
+    public boolean isModeDev() {
+        return modeDev;
+    }
+
     public void setPlayAgain(boolean playAgain) {
         this.playAgain = playAgain;
     }
@@ -65,19 +67,16 @@ public class JeuContext {
         return playAgain;
     }
 
-    public void setPlayAgainChoice(String playAgainChoice) {
-        this.playAgainChoice = playAgainChoice;
-    }
-
     public String getPlayAgainChoice() {
         return playAgainChoice;
     }
 
+    public String getNbCombinaison() {
+        return nbCombinaison;
+    }
+
     public void afficherMenu() {
         LOGGER.info("Affichage du menu");
-
-        System.out.printf("Lancement: Mécanisme de recherche d'une combinaison à %s chiffres%n", this.nbCombinaison);
-        System.out.println();
         this.strategyMode.afficherMenuMode();
     }
 
@@ -99,12 +98,12 @@ public class JeuContext {
                 } else {
                     checkSaisie = false;
                     System.out.println("Veuillez saisir un entier compris entre 1 et 3 selon le mode choisi.");
-                    LOGGER.trace("Mauvaise saisie de l'utilisateur lors du choix du mode");
+                    LOGGER.warn("Mauvaise saisie de l'utilisateur lors du choix du mode");
                 }
             } else {
                 checkSaisie = false;
                 System.out.println("Veuillez saisir un entier compris entre 1 et 3 selon le mode choisi.");
-                LOGGER.trace("Mauvaise saisie de l'utilisateur lors du choix du mode");
+                LOGGER.warn("Mauvaise saisie de l'utilisateur lors du choix du mode");
             }
         } while (!checkSaisie);
         return choix;
@@ -117,7 +116,6 @@ public class JeuContext {
         System.out.println("Le jeu va se lancer dans 3 secondes...");
         this.timer(3000);
         this.strategyMode.jouer(utilisateur, ia);
-        //this.strategyMode.lancerMode();
     }
 
     public void timer(Integer time){
@@ -132,7 +130,6 @@ public class JeuContext {
         Scanner sc;
         boolean checkSaisie;
         do {
-            System.out.println();
             System.out.println("#============================");
             System.out.println("Que voulez-vous faire ?");
             System.out.println("1. Rejouer au même mode");
@@ -155,6 +152,7 @@ public class JeuContext {
                 System.out.println("Votre choix doit être compris entre 1 et 3.");
                 LOGGER.warn("Mauvaise saisie lors du choix de fin de jeu.");
             }
+            System.out.println();
         } while (!checkSaisie);
     }
 }

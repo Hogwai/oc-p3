@@ -27,14 +27,16 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
 
     @Override
     public void jouer(UtilisateurHandler utilisateur, IAHandler ia) {
-        boolean win = false;
         List<String> clues;
+
+        boolean win = false;
         ia.generateRandCombi();
+
         for (int i = 0; i < Integer.parseInt(super.getNbEssais()); i++) {
             clues = ia.compareCombiTo(utilisateur.getUserInputInt());
             if (this.gagnerPartie(clues)){
-                win = true;
                 LOGGER.info(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i));
+                win = true;
                 break;
             } else {
                 LOGGER.info("Affichage d'un indice");
@@ -42,18 +44,24 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
                 utilisateur.getCombinaison().forEach(System.out::print);
                 System.out.print(" -> Réponse : ");
                 clues.forEach(System.out::print);
+
+                System.out.println();
                 System.out.println();
             }
         }
         if (win) {
             System.out.print("Bravo ! Vous avez trouvé la bonne combinaison: ");
             ia.getCombinaison().forEach(System.out::print);
+
+            System.out.println();
             System.out.println();
         } else {
-            System.out.print("Dommage ! Vous n'avez pas réussi trouvé la bonne combinaison: ");
-            ia.getCombinaison().forEach(System.out::print);
-            System.out.println();
             LOGGER.info("Défaite de l'utilisateur");
+            System.out.print("Dommage ! Vous n'avez pas réussi à trouver la bonne combinaison: ");
+            ia.getCombinaison().forEach(System.out::print);
+
+            System.out.println();
+            System.out.println();
         }
     }
 }

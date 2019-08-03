@@ -26,26 +26,31 @@ public class DefenseurStrategy extends Mode implements StrategyMode {
 
     @Override
     public void jouer(UtilisateurHandler utilisateur, IAHandler ia) {
-        boolean win = false;
         String clues;
+
+        boolean win = false;
         Integer solution = utilisateur.getUserInputInt();
         ia.generateRandCombi();
+
         for (int i = 0; i < Integer.parseInt(super.getNbEssais()); i++) {
             clues = utilisateur.getUserInputString(ia.getCombinaison());
             ia.compareGuessesTo(clues);
             if (ia.getCombiInt().equals(solution)){
-                win = true;
                 LOGGER.info(String.format("Victoire de l'intelligence artificielle. Nombre de tentatives: %d", i));
+                win = true;
                 break;
             }
         }
         if (win) {
             System.out.printf("L'intelligence artificielle a deviné votre combinaison: %d", solution);
             System.out.println();
+            System.out.println();
         } else {
+            LOGGER.info("Défaite de l'intelligence artificielle.");
             System.out.printf("L'intelligence artificielle n'est pas parvenue à deviner votre combinaison: %d", solution);
             System.out.println();
-            LOGGER.info("Défaite de l'intelligence artificielle.");
+            System.out.println();
+
         }
     }
 }

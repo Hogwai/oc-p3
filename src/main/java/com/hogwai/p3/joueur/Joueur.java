@@ -55,4 +55,12 @@ public abstract class Joueur {
         }
         return Integer.parseInt(nbStr);
     }
+
+    public String getStringFromList(List<String> listToConcat){
+        String strConcat = "";
+        for (String str : listToConcat) {
+            strConcat = strConcat.concat(str);
+        }
+        return strConcat;
+    }
 }

@@ -36,25 +36,29 @@ public class UtilisateurHandler extends Joueur {
     public int getUserInputInt() {
         Scanner sc;
         boolean checkSaisie;
-        Integer propTemp = 0;
+
+        int propTemp = 0;
         String strMode = this.getStrFromMode();
+
         do {
             System.out.printf("Veuillez saisir votre %s: ", strMode);
             sc = new Scanner(System.in);
             if (sc.hasNextInt()) {
                 propTemp = sc.nextInt();
-                if (propTemp.toString().length() == Integer.parseInt(super.nbCombinaison)
-                        && propTemp.toString().matches("^([1-9]+)")) {
+                if (Integer.toString(propTemp).length() == Integer.parseInt(super.nbCombinaison)
+                        && Integer.toString(propTemp).matches("^([1-9]+)")) {
                     checkSaisie = true;
                 } else {
                     checkSaisie = false;
                     System.out.printf("Votre %s doit être composée de %s chiffres compris entre 1 et 9.%n", strMode, super.nbCombinaison);
                     LOGGER.warn("Proposition de l'utilisateur au mauvais format.");
+                    System.out.println();
                 }
             } else {
                 checkSaisie = false;
                 System.out.printf("Votre %s doit être composée de %s chiffres compris entre 1 et 9.%n", strMode, super.nbCombinaison);
                 LOGGER.warn("Proposition de l'utilisateur au mauvais format.");
+                System.out.println();
             }
         } while (!checkSaisie);
 
@@ -66,6 +70,7 @@ public class UtilisateurHandler extends Joueur {
         Scanner sc;
         boolean checkSaisie;
         String clueTemp = "";
+
         do {
             System.out.print("Proposition : ");
             prop.forEach(System.out::print);
@@ -80,11 +85,13 @@ public class UtilisateurHandler extends Joueur {
                     checkSaisie = false;
                     System.out.printf("Votre indice doit être composé de %s signes (+/-/=).%n", super.nbCombinaison);
                     LOGGER.warn("Indice de l'utilisateur au mauvais format.");
+                    System.out.println();
                 }
             } else {
                 checkSaisie = false;
                 System.out.printf("Votre indice doit être composé de %s signes (+/-/=).%n", super.nbCombinaison);
                 LOGGER.warn("Indice de l'utilisateur au mauvais format.");
+                System.out.println();
             }
         } while (!checkSaisie);
         return clueTemp;

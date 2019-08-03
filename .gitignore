@@ -24,11 +24,14 @@ hs_err_pid*
 
 # Generated file
 *.iml
+
+# Directories
 .idea/
 out/
 target/
 logs/
 javadoc/
+src/test/
 
 # Diagramme
 .uml
