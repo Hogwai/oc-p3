@@ -2,6 +2,9 @@ package com.hogwai.p3.joueur;
 
 import java.util.*;
 
+/**
+ * IAHandler: gestion de l'intelligence artificielle
+ */
 public class IAHandler extends Joueur {
 
     /**
@@ -12,19 +15,21 @@ public class IAHandler extends Joueur {
     }
 
     /**
-     * Compare la combinaison de l'IA à celle passée en paramètre et
-     * renvoie des indices
+     * Compare la combinaison de l'IA à celle passée en paramètre et renvoie des indices
      * @param combinaison Combinaison à comparer avec celle de l'IA
      * @return Chaîne de caractère contenant les indices générés par l'IA
+     * @see IAHandler#getClues(int, int)
+     * @see Joueur#getIntFromList(LinkedList)
+     * @see Joueur#combinaison
      */
     public List<String> compareCombiTo(int combinaison) {
         return this.getClues(this.getIntFromList(this.combinaison), combinaison);
     }
 
     /**
-     * Ajuste la proposition de l'IA par rapport
-     * aux indices donnés par l'utilisateur
+     * Ajuste la proposition de l'IA par rapport aux indices donnés par l'utilisateur
      * @param clue Indice
+     * @see Joueur#combinaison
      */
     public void compareGuessesTo(String clue) {
         for (int i = 0; i < clue.length(); i++) {
@@ -39,6 +44,7 @@ public class IAHandler extends Joueur {
     /**
      * Génère une combinaison aléatoire et
      * la stocke dans l'attribut combinaison
+     * @see Joueur#combinaison
      */
     public void generateRandCombi() {
         this.combinaison = new LinkedList<>();
@@ -50,7 +56,9 @@ public class IAHandler extends Joueur {
 
     /**
      * Génère une combinaison aléatoire et la retourne
-     * @return Combinaison
+     * @return Combinaison générée aléatoirement
+     * @see Joueur#combinaison
+     * @see Joueur#getIntFromList(LinkedList)
      */
     public Integer returnRandCombiInt(){
         LinkedList<Integer> listDigitsCombi = new LinkedList<>();
@@ -66,6 +74,7 @@ public class IAHandler extends Joueur {
      * @param solution Solution à comparer avec la combinaison
      * @param combinaison Combinaison à comparer avec la solution
      * @return Chaîne de caractère contenant les indices générés par l'IA
+     * @see Joueur#getListFromInt(int)
      */
     public List<String> getClues(int solution, int combinaison) {
         List<String> result = new ArrayList<>();

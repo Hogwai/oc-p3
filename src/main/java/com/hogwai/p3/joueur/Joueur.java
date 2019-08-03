@@ -6,27 +6,75 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
+/**
+ * Joueur: classe mère (IAHandler / UtilisateurHandler)
+ */
 public abstract class Joueur {
+    /**
+     * Constante pour la chaîne "config"
+     */
     private static final String CONFIG = "config";
 
+    /**
+     * Liste contenant chaque chiffre de la combinaison du joueur
+     * @see Joueur#setCombinaison(List)
+     * @see Joueur#getCombinaison()
+     */
     protected LinkedList<Integer> combinaison;
+
+    /**
+     * Mode
+     * @see Joueur#getMode()
+     */
     protected ModeName mode;
+
+    /**
+     * Nombre de chiffres autorisé dans une combinaison
+     * @see ResourceBundle#getBundle(String)
+     */
     protected String nbCombinaison = ResourceBundle.getBundle(CONFIG).getString("nbCombinaison");
+
+    /**
+     * Nombre d'essais maximum dans une partie
+     * @see ResourceBundle#getBundle(String)
+     */
     protected String nbEssais = ResourceBundle.getBundle(CONFIG).getString("nbEssais");
+
+    /**
+     * Activation du mode développeur
+     * @see ResourceBundle#getBundle(String)
+     */
     protected boolean modeDev = ResourceBundle.getBundle(CONFIG).getString("modeDev").equals("true");
 
+    /**
+     * Retourne le mode joué
+     * @return Mode
+     */
     public ModeName getMode(){
         return this.mode;
     }
 
+    /**
+     * Définit la combinaison du joueur
+     * @param combinaison Combinaison du joueur
+     */
     public void setCombinaison(List<Integer> combinaison) {
         this.combinaison = (LinkedList<Integer>) combinaison;
     }
 
+    /**
+     * Retourne la combinaison du joueur
+     * @return Combinaison du joueur
+     */
     public List<Integer> getCombinaison() {
         return combinaison;
     }
 
+    /**
+     * Prend en paramètre un nombre entier et le transforme en liste d'entiers
+     * @param nbToList Nombre entier
+     * @return Liste d'entiers
+     */
     protected List<Integer> getListFromInt(int nbToList) {
         LinkedList<Integer> listFromNb = new LinkedList<>();
         while (nbToList > 0) {
@@ -36,6 +84,11 @@ public abstract class Joueur {
         return listFromNb;
     }
 
+    /**
+     * Prend en paramètre une chaîne de caractères et la transforme en liste
+     * @param strToList Chaîne
+     * @return Liste
+     */
     public List<String> getListFromString(String strToList){
         LinkedList<String> listFromStr = new LinkedList<>();
         for (int i = 0; i < strToList.length(); i++){
@@ -44,10 +97,19 @@ public abstract class Joueur {
         return listFromStr;
     }
 
+    /**
+     * Retourne la combinaison de l'utilisateur sous forme d'entier
+     * @return Combinaison
+     */
     public Integer getCombiInt(){
         return this.getIntFromList(this.combinaison);
     }
 
+    /**
+     * Prend en paramètre une liste d'entiers et la transforme en nombre entier
+     * @param listToBeParsed Liste d'entiers
+     * @return Nombre entier
+     */
     public Integer getIntFromList(LinkedList<Integer> listToBeParsed){
         String nbStr = "";
         for (Integer nbList: listToBeParsed) {
@@ -56,6 +118,11 @@ public abstract class Joueur {
         return Integer.parseInt(nbStr);
     }
 
+    /**
+     * Prend en paramètre une liste et la transforme en chaîne de caractères
+     * @param listToConcat Liste
+     * @return chaîne
+     */
     public String getStringFromList(List<String> listToConcat){
         String strConcat = "";
         for (String str : listToConcat) {

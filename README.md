@@ -58,7 +58,7 @@ START_P3_DEVMODE.sh
 ```
 
 ### En ligne de commande
-Vous pouvez aussi ouvrir un terminal et lancer la commande :
+Vous pouvez aussi ouvrir un terminal et lancer la commande:
 ```
 java -Dfile.encoding=UTF-8 -jar p3-1.0-SNAPSHOT.jar 
 ```
@@ -69,6 +69,17 @@ java -Dfile.encoding=UTF-8 -jar p3-1.0-SNAPSHOT.jar "true"
 ```
 
 Cette commande permet de lancer le mécanisme sur les environnements UNIX et Windows confondus.
+
+## Spécificités
+### Journalisation
+La journalisation de l'application est consultable en se rendant dans le répertoire:
+```
+p3/exe/logs
+```
+Et en ouvrant le fichier:
+```
+App.log
+```
 
 ## Réalisé avec
 

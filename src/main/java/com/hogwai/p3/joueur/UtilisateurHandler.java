@@ -7,23 +7,36 @@ import com.hogwai.p3.mode.Mode.ModeName;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-
+/**
+ * UtilisateurHandler: gestion de l'utilisateur
+ */
 public class UtilisateurHandler extends Joueur {
+    /**
+     * Logger
+     * @see LogManager#getLogger(String)
+     */
     private static final Logger LOGGER = LogManager.getLogger(UtilisateurHandler.class.getName());
 
     /**
      * Constructeur surchargé
-     * @param mode
+     * @param mode Mode joué
+     * @see ModeName
      */
     public UtilisateurHandler(ModeName mode) {
         this.mode = mode;
     }
+
 
     @Override
     public List<Integer> getCombinaison() {
         return super.combinaison;
     }
 
+    /**
+     * Retourne une chaîne en fonction du mode
+     * @return chaîne
+     * @see ModeName
+     */
     private String getStrFromMode(){
         if(this.mode.equals(ModeName.CHALLENGER)
                 || this.mode.equals(ModeName.DUEL)){
@@ -33,6 +46,12 @@ public class UtilisateurHandler extends Joueur {
         }
     }
 
+    /**
+     * Demande la proposition/solution de l'utilisateur sous forme d'entier, contrôle la saisie et la renvoie
+     * @return Proposition ou solution
+     * @see Joueur#combinaison
+     * @see UtilisateurHandler#getStrFromMode()
+     */
     public int getUserInputInt() {
         Scanner sc;
         boolean checkSaisie;
@@ -66,6 +85,12 @@ public class UtilisateurHandler extends Joueur {
         return propTemp;
     }
 
+    /**
+     * Demande les indices de l'utilisateur sous forme de chaîne, contrôle la saisie et la renvoie
+     * @param prop Proposition à afficher
+     * @return Indices
+     * @see Joueur#combinaison
+     */
     public String getUserInputString(List<Integer> prop) {
         Scanner sc;
         boolean checkSaisie;

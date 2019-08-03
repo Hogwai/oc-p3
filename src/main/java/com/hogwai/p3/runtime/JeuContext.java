@@ -11,16 +11,71 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+/**
+ * JeuContext: gestion du jeu
+ * <ul>
+ *     <li>Tâches:</li>
+ *     <li>
+ *         <ul>
+ *             <li>Récupération des propriétés du fichier config.properties</li>
+ *             <li>Lancement du mode (strategy) choisi par l'utilisateur</li>
+ *         </ul>
+ *     </li>
+ * </ul>
+ *
+ * @author Lilian
+ */
 public class JeuContext {
     private static final Logger LOGGER = LogManager.getLogger(JeuContext.class.getName());
 
+    /**
+     * Stratégie choisie par l'utilisateur
+     * @see StrategyMode
+     * @see JeuContext#setStrategyMode(StrategyMode)
+     */
     private StrategyMode strategyMode;
+
+    /**
+     * Nombre de chiffres autorisés dans une combinaison
+     * @see JeuContext#getNbCombinaison()
+     */
     private String nbCombinaison;
+
+    /**
+     * Nombre d'essais dont dispose le joueur (IA/Utilisateur)
+     */
     private String nbEssais;
+
+    /**
+     * Booléen indiquant l'activation ou non du mode développeur
+     * @see JeuContext#setModeDev(boolean)
+     * @see JeuContext#isModeDev()
+     */
     private boolean modeDev;
+
+    /**
+     * Booléen indiquant la volonté de l'utilisateur de rejouer
+     * @see JeuContext#setPlayAgain(boolean)
+     * @see JeuContext#isPlayAgain()
+     */
     private boolean playAgain;
+
+    /**
+     * Choix de l'utilisateur quand il rejoue
+     * @see JeuContext#getPlayAgainChoice()
+     */
     private String playAgainChoice;
 
+
+    /**
+     * Constructeur surchargé JeuContext
+     * @param modeDev Mode développeur
+     * @see JeuContext#playAgain
+     * @see JeuContext#playAgainChoice
+     * @see JeuContext#nbCombinaison
+     * @see JeuContext#nbEssais
+     * @see JeuContext#modeDev
+     */
     public JeuContext(Boolean modeDev) {
         ResourceBundle properties = this.getProperties();
         this.playAgain = false;
@@ -37,10 +92,20 @@ public class JeuContext {
 
     }
 
+    /**
+     * Définit la stratégie
+     * @param strategyMode Stratégie
+     * @see StrategyMode
+     */
     public void setStrategyMode(StrategyMode strategyMode) {
         this.strategyMode = strategyMode;
     }
 
+    /**
+     * Retourne les propriétés extraites du fichier config.properties
+     * @return Bundle contenant les properties
+     * @see ResourceBundle
+     */
     public ResourceBundle getProperties() {
         try {
             ResourceBundle.getBundle("config");
@@ -51,35 +116,66 @@ public class JeuContext {
         return ResourceBundle.getBundle("config");
     }
 
+    /**
+     * Définit l'activation du mode développeur
+     * @param modeDev Mode développeur
+     */
     public void setModeDev(boolean modeDev) {
         this.modeDev = modeDev;
     }
 
+    /**
+     * Détermine si le mode développeur est activé
+     * @return Mode développeur
+     */
     public boolean isModeDev() {
         return modeDev;
     }
 
+    /**
+     * Définit la volonté de l'utilisateur de rejouer
+     * @param playAgain Booléen
+     */
     public void setPlayAgain(boolean playAgain) {
         this.playAgain = playAgain;
     }
 
+    /**
+     * Retourne la volonté de l'utilisateur de rejouer
+     * @return Booléen
+     */
     public boolean isPlayAgain() {
         return playAgain;
     }
 
+    /**
+     * Retourne le choix du mode de l'utilisateur voulant rejouer
+     * @return Choix de l'utilisateur
+     */
     public String getPlayAgainChoice() {
         return playAgainChoice;
     }
 
+    /**
+     * Retourne le nombre de chiffres autorisés pour une combinaison
+     * @return nombre de chiffres autorisés dans une combinaison
+     */
     public String getNbCombinaison() {
         return nbCombinaison;
     }
 
+    /**
+     * Affiche le menu selon le mode choisi
+     */
     public void afficherMenu() {
         LOGGER.info("Affichage du menu");
         this.strategyMode.afficherMenuMode();
     }
 
+    /**
+     * Demande à l'utilisateur de choisir un mode, récupère et retourne sa saisie
+     * @return Nombre entier contenant la saisie
+     */
     public int demanderChoixMode() {
         LOGGER.info("Choix du mode");
         Scanner sc;
@@ -109,6 +205,14 @@ public class JeuContext {
         return choix;
     }
 
+
+    /**
+     * Instancie deux joueurs (IA, utilisateur) et lance le jeu
+     * @param mode Mode choisi par l'utilisateur
+     * @see IAHandler
+     * @see UtilisateurHandler
+     * @see StrategyMode#jouer(UtilisateurHandler, IAHandler)
+     */
     public void lancerPartie(Mode.ModeName mode) {
         LOGGER.info(String.format("Lancement du mode %s", mode));
         IAHandler ia = new IAHandler();
@@ -118,6 +222,10 @@ public class JeuContext {
         this.strategyMode.jouer(utilisateur, ia);
     }
 
+    /**
+     * Timer
+     * @param time durée du timer
+     */
     public void timer(Integer time){
         try {
             Thread.sleep(time);
@@ -126,6 +234,11 @@ public class JeuContext {
             Thread.currentThread().interrupt();
         }
     }
+
+    /**
+     * Demande à l'utilisateur s'il veut rejouer et récupère sa saisie
+     * @see JeuContext#playAgainChoice
+     */
     public void rejouer(){
         Scanner sc;
         boolean checkSaisie;
