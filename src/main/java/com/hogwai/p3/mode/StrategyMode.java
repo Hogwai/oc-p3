@@ -5,6 +5,9 @@ import com.hogwai.p3.joueur.UtilisateurHandler;
 
 import java.util.List;
 
+/**
+ * Interface servant à l'implémentation du patron de conception Strategy
+ */
 public interface StrategyMode {
 
     /**
@@ -20,7 +23,7 @@ public interface StrategyMode {
     void jouer(UtilisateurHandler utilisateur, IAHandler ia);
 
     /**
-     * Détermine si la liste d'indices passée en paramètre constitue une victoire.
+     * Détermine si la liste d'indices passée en paramètre équivaut à une victoire.
      * @param clues liste d'indices
      * @return true si victoire, faux sinon
      */

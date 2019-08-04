@@ -202,6 +202,11 @@ public class JeuContext {
                 LOGGER.warn("Mauvaise saisie de l'utilisateur lors du choix du mode");
             }
         } while (!checkSaisie);
+
+        //Mode développeur: ON
+        if(this.modeDev){
+            LOGGER.debug(String.format("Choix de l'utilisateur: %d", choix));
+        }
         return choix;
     }
 
@@ -265,7 +270,12 @@ public class JeuContext {
                 System.out.println("Votre choix doit être compris entre 1 et 3.");
                 LOGGER.warn("Mauvaise saisie lors du choix de fin de jeu.");
             }
-            System.out.println();
         } while (!checkSaisie);
+
+        //Mode développeur: ON
+        if(this.modeDev){
+            LOGGER.debug(String.format("Choix de l'utilisateur: %s", this.playAgainChoice));
+        }
+        System.out.println();
     }
 }

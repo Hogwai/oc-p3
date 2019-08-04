@@ -3,7 +3,7 @@ package com.hogwai.p3.joueur;
 import java.util.*;
 
 /**
- * IAHandler: gestion de l'intelligence artificielle
+ * Classe gestionnaire de l'intelligence artificielle
  */
 public class IAHandler extends Joueur {
 

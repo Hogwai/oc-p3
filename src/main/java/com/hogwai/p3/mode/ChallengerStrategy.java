@@ -7,8 +7,17 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 
+/**
+ * Classe gestionnaire du mode Challenger
+ */
 public class ChallengerStrategy extends Mode implements StrategyMode {
     private static final Logger LOGGER = LogManager.getLogger(ChallengerStrategy.class.getName());
+
+    public ChallengerStrategy(Boolean modeDev) {
+        if (modeDev) {
+            this.modeDev = modeDev;
+        }
+    }
 
     @Override
     public void afficherMenuMode() {
@@ -16,6 +25,10 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
         System.out.printf("Bienvenue dans le mode %s!%n", ModeName.CHALLENGER);
         System.out.printf("Votre objectif: Trouver la bonne combinaison en %s essais%n", super.getNbCombinaison());
         System.out.println();
+        if(this.modeDev){
+            System.out.println("Le mode développeur est activé");
+            System.out.println();
+        }
         System.out.println("A chaque tentative incorrecte, le système vous donnera une réponse sous forme d'un indice:");
         System.out.println("Proposition : XXXX -> Réponse : -=+-");
         System.out.println();
@@ -28,17 +41,38 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
     @Override
     public void jouer(UtilisateurHandler utilisateur, IAHandler ia) {
         List<String> clues;
+        int propoUser;
 
         boolean win = false;
         ia.generateRandCombi();
 
+        //Mode développeur: ON
+        if(this.modeDev){
+            LOGGER.debug(String.format("Solution: %d", ia.getCombiInt()));
+            System.out.printf("Solution: %d%n", ia.getCombiInt());
+        }
+
         for (int i = 0; i < Integer.parseInt(super.getNbEssais()); i++) {
-            clues = ia.compareCombiTo(utilisateur.getUserInputInt());
+            propoUser = utilisateur.getUserInputInt();
+
+            //Mode développeur: ON
+            if(this.modeDev){
+                LOGGER.debug(String.format("Proposition de l'utilisateur: %d", propoUser));
+            }
+
+            clues = ia.compareCombiTo(propoUser);
+
             if (this.gagnerPartie(clues)){
-                LOGGER.info(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i));
+                if(this.modeDev){
+                    LOGGER.debug(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i + 1));
+                }
                 win = true;
                 break;
             } else {
+                //Mode développeur: ON
+                if(this.modeDev){
+                    LOGGER.debug(String.format("Indices donnés par l'intelligence artificielle: %s", ia.getStringFromList(clues)));
+                }
                 LOGGER.info("Affichage d'un indice");
                 System.out.print("Proposition : ");
                 utilisateur.getCombinaison().forEach(System.out::print);

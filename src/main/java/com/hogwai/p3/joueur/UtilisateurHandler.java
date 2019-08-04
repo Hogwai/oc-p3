@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 /**
- * UtilisateurHandler: gestion de l'utilisateur
+ * Classe gestionnaire de l'utilisateur
  */
 public class UtilisateurHandler extends Joueur {
     /**
