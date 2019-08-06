@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class DefenseurStrategy extends Mode implements StrategyMode {
     private static final Logger LOGGER = LogManager.getLogger(ChallengerStrategy.class.getName());
 
-    public DefenseurStrategy(Boolean modeDev){
+    public DefenseurStrategy(Boolean modeDev) {
         if (modeDev) {
             this.modeDev = modeDev;
         }
@@ -24,7 +24,8 @@ public class DefenseurStrategy extends Mode implements StrategyMode {
         System.out.printf("Votre objectif: Définir une combinaison de %s chiffres que le système tentera de deviner en %s essais%n",
                 super.getNbCombinaison(), super.getNbEssais());
         System.out.println();
-        if(this.modeDev){
+        //Mode développeur: ON
+        if (this.modeDev) {
             System.out.println("Le mode développeur est activé");
             System.out.println();
         }
@@ -40,34 +41,29 @@ public class DefenseurStrategy extends Mode implements StrategyMode {
     @Override
     public void jouer(UtilisateurHandler utilisateur, IAHandler ia) {
         String clues;
-
         boolean win = false;
         Integer solution = utilisateur.getUserInputInt();
         ia.generateRandCombi();
-
         //Mode développeur: ON
-        if(this.modeDev){
+        if (this.modeDev) {
             LOGGER.debug(String.format("Solution: %d", solution));
             System.out.printf("Solution: %d%n", solution);
         }
 
         for (int i = 0; i < Integer.parseInt(super.getNbEssais()); i++) {
             clues = utilisateur.getUserInputString(ia.getCombinaison());
-
             //Mode développeur: ON
-            if(this.modeDev){
+            if (this.modeDev) {
                 LOGGER.debug(String.format("Indices donnés par l'utilisateur: %s", clues));
             }
-
             ia.compareGuessesTo(clues);
-
             //Mode développeur: ON
-            if(this.modeDev){
+            if (this.modeDev) {
                 LOGGER.debug(String.format("Proposition de l'intelligence artificielle: %d", ia.getCombiInt()));
             }
-            if (ia.getCombiInt().equals(solution)){
+            if (ia.getCombiInt().equals(solution)) {
                 //Mode développeur: ON
-                if(this.modeDev){
+                if (this.modeDev) {
                     LOGGER.debug(String.format("Victoire de l'intelligence artificielle. Nombre de tentatives: %d", i));
                 }
                 win = true;
@@ -83,7 +79,6 @@ public class DefenseurStrategy extends Mode implements StrategyMode {
             System.out.printf("L'intelligence artificielle n'est pas parvenue à deviner votre combinaison: %d", solution);
             System.out.println();
             System.out.println();
-
         }
     }
 }

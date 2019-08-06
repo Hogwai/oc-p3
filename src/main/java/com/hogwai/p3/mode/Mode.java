@@ -7,27 +7,27 @@ import java.util.ResourceBundle;
  */
 public abstract class Mode {
     /**
-     * Constante pour la chaîne "config"
+     * Properties
      */
-    private static final String CONFIG = "config";
+    private ResourceBundle props = ResourceBundle.getBundle("config");
 
     /**
      * Nombre de chiffres d'une combinaison
-     * @see ResourceBundle#getBundle(String)
+     * @see Mode#getNbCombinaison()
      */
-    protected String nbCombinaison = ResourceBundle.getBundle(CONFIG).getString("nbCombinaison");
+    protected String nbCombinaison = props.getString("nbCombinaison");
 
     /**
      * Nombre d'essais d'une partie
-     * @see ResourceBundle#getBundle(String)
+     * @see Mode#getNbEssais()
      */
-    protected String nbEssais = ResourceBundle.getBundle(CONFIG).getString("nbEssais");
+    protected String nbEssais = props.getString("nbEssais");
 
     /**
      *  Activation du mode développeur
-     *  @see ResourceBundle#getBundle(String)
+     * @see Mode#isModeDev()
      */
-    protected boolean modeDev = ResourceBundle.getBundle(CONFIG).getString("modeDev").equals("true");
+    protected boolean modeDev = props.getString("modeDev").equals("true");
 
 
     /**

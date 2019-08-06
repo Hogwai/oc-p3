@@ -75,26 +75,13 @@ public abstract class Joueur {
      * @param nbToList Nombre entier
      * @return Liste d'entiers
      */
-    protected List<Integer> getListFromInt(int nbToList) {
+    List<Integer> getListFromInt(int nbToList) {
         LinkedList<Integer> listFromNb = new LinkedList<>();
         while (nbToList > 0) {
             listFromNb.push(nbToList % 10);
             nbToList /= 10;
         }
         return listFromNb;
-    }
-
-    /**
-     * Prend en paramètre une chaîne de caractères et la transforme en liste
-     * @param strToList Chaîne
-     * @return Liste
-     */
-    public List<String> getListFromString(String strToList){
-        LinkedList<String> listFromStr = new LinkedList<>();
-        for (int i = 0; i < strToList.length(); i++){
-            listFromStr.push(Character.toString(strToList.charAt(i)));
-        }
-        return listFromStr;
     }
 
     /**
@@ -110,7 +97,7 @@ public abstract class Joueur {
      * @param listToBeParsed Liste d'entiers
      * @return Nombre entier
      */
-    public Integer getIntFromList(LinkedList<Integer> listToBeParsed){
+    Integer getIntFromList(LinkedList<Integer> listToBeParsed){
         String nbStr = "";
         for (Integer nbList: listToBeParsed) {
             nbStr = nbStr.concat(nbList.toString());

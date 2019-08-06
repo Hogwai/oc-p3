@@ -25,6 +25,7 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
         System.out.printf("Bienvenue dans le mode %s!%n", ModeName.CHALLENGER);
         System.out.printf("Votre objectif: Trouver la bonne combinaison en %s essais%n", super.getNbCombinaison());
         System.out.println();
+        //Mode développeur: ON
         if(this.modeDev){
             System.out.println("Le mode développeur est activé");
             System.out.println();
@@ -42,10 +43,8 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
     public void jouer(UtilisateurHandler utilisateur, IAHandler ia) {
         List<String> clues;
         int propoUser;
-
         boolean win = false;
         ia.generateRandCombi();
-
         //Mode développeur: ON
         if(this.modeDev){
             LOGGER.debug(String.format("Solution: %d", ia.getCombiInt()));
@@ -54,14 +53,11 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
 
         for (int i = 0; i < Integer.parseInt(super.getNbEssais()); i++) {
             propoUser = utilisateur.getUserInputInt();
-
             //Mode développeur: ON
             if(this.modeDev){
                 LOGGER.debug(String.format("Proposition de l'utilisateur: %d", propoUser));
             }
-
             clues = ia.compareCombiTo(propoUser);
-
             if (this.gagnerPartie(clues)){
                 if(this.modeDev){
                     LOGGER.debug(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i + 1));

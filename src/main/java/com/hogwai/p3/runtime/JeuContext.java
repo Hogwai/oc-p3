@@ -2,8 +2,7 @@ package com.hogwai.p3.runtime;
 
 import com.hogwai.p3.joueur.IAHandler;
 import com.hogwai.p3.joueur.UtilisateurHandler;
-import com.hogwai.p3.mode.Mode;
-import com.hogwai.p3.mode.StrategyMode;
+import com.hogwai.p3.mode.*;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -66,6 +65,15 @@ public class JeuContext {
      */
     private String playAgainChoice;
 
+    /**
+     * Nombre de parties jouées par l'utilisateur
+     */
+    private int nbPlays;
+
+    /**
+     * Mode
+     */
+    private Mode.ModeName mode;
 
     /**
      * Constructeur surchargé JeuContext
@@ -83,13 +91,13 @@ public class JeuContext {
         this.nbCombinaison = properties.getString("nbCombinaison");
         this.nbEssais = properties.getString("nbEssais");
         this.modeDev = modeDev ? modeDev : Boolean.parseBoolean(properties.getString("modeDev"));
+        this.nbPlays = 1;
         LOGGER.info("Lancement d'une instance de jeu");
         if (this.modeDev) {
             LOGGER.debug(String.format("Nombre de chiffres dans une combinaison: %s", this.nbCombinaison));
             LOGGER.debug(String.format("Nombre d'essais: %s", this.nbEssais));
             LOGGER.debug(String.format("Mode développeur: %s", this.modeDev ? "activé" : "désactivé"));
         }
-
     }
 
     /**
@@ -97,7 +105,7 @@ public class JeuContext {
      * @param strategyMode Stratégie
      * @see StrategyMode
      */
-    public void setStrategyMode(StrategyMode strategyMode) {
+    private void setStrategyMode(StrategyMode strategyMode) {
         this.strategyMode = strategyMode;
     }
 
@@ -137,6 +145,15 @@ public class JeuContext {
      * @param playAgain Booléen
      */
     public void setPlayAgain(boolean playAgain) {
+        if(playAgain){
+            this.nbPlays++;
+        } else {
+            LOGGER.info("L'utilisateur a quitté le jeu.");
+            if(this.modeDev){
+                LOGGER.debug(String.format("Fin du jeu. Nombre de parties jouées: %d", this.nbPlays));
+            }
+            System.out.println("A bientôt.");
+        }
         this.playAgain = playAgain;
     }
 
@@ -168,15 +185,16 @@ public class JeuContext {
      * Affiche le menu selon le mode choisi
      */
     public void afficherMenu() {
+        System.out.printf("#=== Lancement: Mécanisme de recherche d'une combinaison à %s chiffres ===#%n", this.nbCombinaison);
+        System.out.println();
         LOGGER.info("Affichage du menu");
         this.strategyMode.afficherMenuMode();
     }
 
     /**
-     * Demande à l'utilisateur de choisir un mode, récupère et retourne sa saisie
-     * @return Nombre entier contenant la saisie
+     * Demande à l'utilisateur de choisir un mode et Initialise la stratégie
      */
-    public int demanderChoixMode() {
+    public void demanderChoixMode() {
         LOGGER.info("Choix du mode");
         Scanner sc;
         boolean checkSaisie;
@@ -202,26 +220,47 @@ public class JeuContext {
                 LOGGER.warn("Mauvaise saisie de l'utilisateur lors du choix du mode");
             }
         } while (!checkSaisie);
-
         //Mode développeur: ON
         if(this.modeDev){
             LOGGER.debug(String.format("Choix de l'utilisateur: %d", choix));
         }
-        return choix;
+        this.initStrategy(choix);
     }
 
+    /**
+     * Initialise la stratégie correspondant au choix de l'utilisateur
+     * @param choixUser choix
+     */
+    private void initStrategy(int choixUser){
+        switch (choixUser) {
+            case 1:
+                this.setStrategyMode(new ChallengerStrategy(this.modeDev));
+                this.mode = Mode.ModeName.CHALLENGER;
+                break;
+            case 2:
+                this.setStrategyMode(new DefenseurStrategy(this.modeDev));
+                this.mode = Mode.ModeName.DEFENSEUR;
+                break;
+            case 3:
+                this.setStrategyMode(new DuelStrategy(this.modeDev));
+                this.mode = Mode.ModeName.DUEL;
+                break;
+            default:
+                LOGGER.error("Valeur inattendue lors du choix du mode.");
+        }
+        LOGGER.info(String.format("Mode choisi: %s", this.mode != null ? this.mode.name() : "Erreur dans le récupèration du mode"));
+    }
 
     /**
      * Instancie deux joueurs (IA, utilisateur) et lance le jeu
-     * @param mode Mode choisi par l'utilisateur
      * @see IAHandler
      * @see UtilisateurHandler
      * @see StrategyMode#jouer(UtilisateurHandler, IAHandler)
      */
-    public void lancerPartie(Mode.ModeName mode) {
-        LOGGER.info(String.format("Lancement du mode %s", mode));
+    public void lancerPartie() {
+        LOGGER.info(String.format("Lancement du mode %s", this.mode));
         IAHandler ia = new IAHandler();
-        UtilisateurHandler utilisateur = new UtilisateurHandler(mode);
+        UtilisateurHandler utilisateur = new UtilisateurHandler(this.mode);
         System.out.println("Le jeu va se lancer dans 3 secondes...");
         this.timer(3000);
         this.strategyMode.jouer(utilisateur, ia);
@@ -271,7 +310,6 @@ public class JeuContext {
                 LOGGER.warn("Mauvaise saisie lors du choix de fin de jeu.");
             }
         } while (!checkSaisie);
-
         //Mode développeur: ON
         if(this.modeDev){
             LOGGER.debug(String.format("Choix de l'utilisateur: %s", this.playAgainChoice));
