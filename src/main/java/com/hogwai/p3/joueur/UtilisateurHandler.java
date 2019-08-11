@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 /**
- * Classe gestionnaire de l'utilisateur
+ * Classe gestionnaire des intéractions avec l'utilisateur
  */
 public class UtilisateurHandler extends Joueur {
     /**
@@ -20,7 +20,6 @@ public class UtilisateurHandler extends Joueur {
     /**
      * Constructeur surchargé
      * @param mode Mode joué
-     * @see ModeName
      */
     public UtilisateurHandler(ModeName mode) {
         this.mode = mode;
@@ -35,9 +34,8 @@ public class UtilisateurHandler extends Joueur {
     /**
      * Retourne une chaîne en fonction du mode
      * @return chaîne
-     * @see ModeName
      */
-    private String getStrFromMode(){
+    public String getStrFromMode(){
         if(this.mode.equals(ModeName.CHALLENGER)
                 || this.mode.equals(ModeName.DUEL)){
             return "proposition";
@@ -49,16 +47,13 @@ public class UtilisateurHandler extends Joueur {
     /**
      * Demande la proposition/solution de l'utilisateur sous forme d'entier, contrôle la saisie et la renvoie
      * @return Proposition ou solution
-     * @see Joueur#combinaison
      * @see UtilisateurHandler#getStrFromMode()
      */
     public int getUserInputInt() {
         Scanner sc;
         boolean checkSaisie;
-
         int propTemp = 0;
         String strMode = this.getStrFromMode();
-
         do {
             System.out.printf("Veuillez saisir votre %s: ", strMode);
             sc = new Scanner(System.in);
@@ -80,7 +75,6 @@ public class UtilisateurHandler extends Joueur {
                 System.out.println();
             }
         } while (!checkSaisie);
-
         this.setCombinaison(super.getListFromInt(propTemp));
         return propTemp;
     }
@@ -89,7 +83,6 @@ public class UtilisateurHandler extends Joueur {
      * Demande les indices de l'utilisateur sous forme de chaîne, contrôle la saisie et la renvoie
      * @param prop Proposition à afficher
      * @return Indices
-     * @see Joueur#combinaison
      */
     public String getUserInputString(List<Integer> prop) {
         Scanner sc;

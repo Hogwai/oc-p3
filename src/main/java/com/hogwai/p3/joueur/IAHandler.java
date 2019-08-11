@@ -20,7 +20,6 @@ public class IAHandler extends Joueur {
      * @return Chaîne de caractère contenant les indices générés par l'IA
      * @see IAHandler#getClues(int, int)
      * @see Joueur#getIntFromList(LinkedList)
-     * @see Joueur#combinaison
      */
     public List<String> compareCombiTo(int combinaison) {
         return this.getClues(this.getIntFromList(this.combinaison), combinaison);
@@ -29,7 +28,6 @@ public class IAHandler extends Joueur {
     /**
      * Ajuste la proposition de l'IA par rapport aux indices donnés par l'utilisateur
      * @param clue Indice
-     * @see Joueur#combinaison
      */
     public void compareGuessesTo(String clue) {
         for (int i = 0; i < clue.length(); i++) {
@@ -42,9 +40,7 @@ public class IAHandler extends Joueur {
     }
 
     /**
-     * Génère une combinaison aléatoire et
-     * la stocke dans l'attribut combinaison
-     * @see Joueur#combinaison
+     * Génère une combinaison aléatoire et la stocke dans l'attribut combinaison
      */
     public void generateRandCombi() {
         this.combinaison = new LinkedList<>();

@@ -14,8 +14,8 @@ public class ChallengerStrategy extends Mode implements StrategyMode {
     private static final Logger LOGGER = LogManager.getLogger(ChallengerStrategy.class.getName());
 
     public ChallengerStrategy(Boolean modeDev) {
-        if (modeDev) {
-            this.modeDev = modeDev;
+        if (Boolean.TRUE.equals(modeDev)) {
+            this.modeDev = true;
         }
     }
 

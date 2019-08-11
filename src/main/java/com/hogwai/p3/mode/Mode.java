@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 /**
  * Mode: classe abstraite mère (ChallengerStrategy / DefenseurStrategy / DuelStrategy)
+ * @author Lilian
  */
 public abstract class Mode {
     /**

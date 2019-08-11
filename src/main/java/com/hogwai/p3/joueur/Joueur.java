@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 /**
  * Joueur: classe mère (IAHandler / UtilisateurHandler)
+ * @author Lilian
  */
 public abstract class Joueur {
     /**

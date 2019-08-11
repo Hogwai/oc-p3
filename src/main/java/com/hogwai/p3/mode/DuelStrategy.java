@@ -11,11 +11,11 @@ import java.util.List;
  * Classe gestionnaire du mode Duel
  */
 public class DuelStrategy extends Mode implements StrategyMode {
-    private static final Logger LOGGER = LogManager.getLogger(ChallengerStrategy.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(DuelStrategy.class.getName());
 
     public DuelStrategy(Boolean modeDev){
-        if (modeDev) {
-            this.modeDev = modeDev;
+        if (Boolean.TRUE.equals(modeDev)) {
+            this.modeDev = true;
         }
     }
 

@@ -9,11 +9,11 @@ import org.apache.logging.log4j.Logger;
  * Classe gestionnaire du mode Défenseur
  */
 public class DefenseurStrategy extends Mode implements StrategyMode {
-    private static final Logger LOGGER = LogManager.getLogger(ChallengerStrategy.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(DefenseurStrategy.class.getName());
 
     public DefenseurStrategy(Boolean modeDev) {
-        if (modeDev) {
-            this.modeDev = modeDev;
+        if (Boolean.TRUE.equals(modeDev)) {
+            this.modeDev = true;
         }
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Interface servant à l'implémentation du patron de conception Strategy
+ * @author Lilian
  */
 public interface StrategyMode {
 

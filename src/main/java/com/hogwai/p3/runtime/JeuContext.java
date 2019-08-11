@@ -25,6 +25,9 @@ import java.util.Scanner;
  * @author Lilian
  */
 public class JeuContext {
+    /**
+     * Logger
+     */
     private static final Logger LOGGER = LogManager.getLogger(JeuContext.class.getName());
 
     /**
@@ -90,7 +93,7 @@ public class JeuContext {
         this.playAgainChoice = "2";
         this.nbCombinaison = properties.getString("nbCombinaison");
         this.nbEssais = properties.getString("nbEssais");
-        this.modeDev = modeDev ? modeDev : Boolean.parseBoolean(properties.getString("modeDev"));
+        this.modeDev = Boolean.TRUE.equals(modeDev) ? modeDev : Boolean.parseBoolean(properties.getString("modeDev"));
         this.nbPlays = 1;
         LOGGER.info("Lancement d'une instance de jeu");
         if (this.modeDev) {
@@ -192,7 +195,7 @@ public class JeuContext {
     }
 
     /**
-     * Demande à l'utilisateur de choisir un mode et Initialise la stratégie
+     * Demande à l'utilisateur de choisir un mode et initialise la stratégie
      */
     public void demanderChoixMode() {
         LOGGER.info("Choix du mode");
