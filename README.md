@@ -81,7 +81,7 @@ Et en ouvrant le fichier:
 App.log
 ```
 
-###JavaDoc
+### JavaDoc
 La JavaDoc est accessible en cliquant ici: [Documentation](https://hogwai.github.io/P3/javadoc/)
 
 ## Réalisé avec
