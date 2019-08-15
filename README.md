@@ -82,7 +82,7 @@ App.log
 ```
 
 ### JavaDoc
-La JavaDoc est accessible en cliquant ici: [Documentation](https://hogwai.github.io/P3/javadoc/)
+La JavaDoc est accessible en cliquant ici: [Documentation](javadoc/)
 
 ## Réalisé avec
 
