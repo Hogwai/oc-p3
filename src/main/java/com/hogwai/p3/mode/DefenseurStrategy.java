@@ -64,7 +64,7 @@ public class DefenseurStrategy extends Mode implements StrategyMode {
             if (ia.getCombiInt().equals(solution)) {
                 //Mode développeur: ON
                 if (this.modeDev) {
-                    LOGGER.debug(String.format("Victoire de l'intelligence artificielle. Nombre de tentatives: %d", i));
+                    LOGGER.debug(String.format("Victoire de l'intelligence artificielle. Nombre de tentatives: %d", i + 1));
                 }
                 win = true;
                 break;

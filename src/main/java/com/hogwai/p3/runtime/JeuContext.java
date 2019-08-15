@@ -41,12 +41,12 @@ public class JeuContext {
      * Nombre de chiffres autorisés dans une combinaison
      * @see JeuContext#getNbCombinaison()
      */
-    private String nbCombinaison;
+    private final String nbCombinaison;
 
     /**
      * Nombre d'essais dont dispose le joueur (IA/Utilisateur)
      */
-    private String nbEssais;
+    private final String nbEssais;
 
     /**
      * Booléen indiquant l'activation ou non du mode développeur
@@ -93,7 +93,7 @@ public class JeuContext {
         this.playAgainChoice = "2";
         this.nbCombinaison = properties.getString("nbCombinaison");
         this.nbEssais = properties.getString("nbEssais");
-        this.modeDev = Boolean.TRUE.equals(modeDev) ? modeDev : Boolean.parseBoolean(properties.getString("modeDev"));
+        this.modeDev = Boolean.TRUE.equals(modeDev) || Boolean.parseBoolean(properties.getString("modeDev"));
         this.nbPlays = 1;
         LOGGER.info("Lancement d'une instance de jeu");
         if (this.modeDev) {
@@ -117,7 +117,7 @@ public class JeuContext {
      * @return Bundle contenant les properties
      * @see ResourceBundle
      */
-    public ResourceBundle getProperties() {
+    private ResourceBundle getProperties() {
         try {
             ResourceBundle.getBundle("config");
         } catch (MissingResourceException ex) {
@@ -265,17 +265,16 @@ public class JeuContext {
         IAHandler ia = new IAHandler();
         UtilisateurHandler utilisateur = new UtilisateurHandler(this.mode);
         System.out.println("Le jeu va se lancer dans 3 secondes...");
-        this.timer(3000);
+        this.timer();
         this.strategyMode.jouer(utilisateur, ia);
     }
 
     /**
      * Timer
-     * @param time durée du timer
      */
-    public void timer(Integer time){
+    private void timer(){
         try {
-            Thread.sleep(time);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             LOGGER.warn(String.format("Une erreur est survenue lors du décompte avant le lancement de la boucle de jeu: %s", ex));
             Thread.currentThread().interrupt();

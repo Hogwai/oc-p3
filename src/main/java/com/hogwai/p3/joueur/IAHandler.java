@@ -41,6 +41,7 @@ public class IAHandler extends Joueur {
 
     /**
      * Génère une combinaison aléatoire et la stocke dans l'attribut combinaison
+     * @see Joueur#combinaison
      */
     public void generateRandCombi() {
         this.combinaison = new LinkedList<>();

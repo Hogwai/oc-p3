@@ -30,7 +30,6 @@ hs_err_pid*
 out/
 target/
 logs/
-javadoc/
 src/test/
 
 # Diagramme

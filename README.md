@@ -81,6 +81,9 @@ Et en ouvrant le fichier:
 App.log
 ```
 
+###JavaDoc
+La JavaDoc est accessible en cliquant ici: [Documentation](javadoc/index.html)
+
 ## Réalisé avec
 
 * [Log4j2](https://logging.apache.org/log4j/2.x/) - API de journalisation

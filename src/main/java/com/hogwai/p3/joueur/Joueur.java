@@ -21,19 +21,19 @@ public abstract class Joueur {
      * @see Joueur#setCombinaison(List)
      * @see Joueur#getCombinaison()
      */
-    protected LinkedList<Integer> combinaison;
+    LinkedList<Integer> combinaison;
 
     /**
      * Mode
      * @see Joueur#getMode()
      */
-    protected ModeName mode;
+    ModeName mode;
 
     /**
      * Nombre de chiffres autorisé dans une combinaison
      * @see ResourceBundle#getBundle(String)
      */
-    protected String nbCombinaison = ResourceBundle.getBundle(CONFIG).getString("nbCombinaison");
+    final String nbCombinaison = ResourceBundle.getBundle(CONFIG).getString("nbCombinaison");
 
     /**
      * Nombre d'essais maximum dans une partie

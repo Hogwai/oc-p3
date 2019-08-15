@@ -73,17 +73,17 @@ public class DuelStrategy extends Mode implements StrategyMode {
             }
             if(this.gagnerPartie(cluesUser)){
                 if(this.modeDev){
-                    LOGGER.debug(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i));
+                    LOGGER.debug(String.format("Victoire de l'utilisateur. Nombre de tentatives: %d", i + 1));
                 }
-                System.out.printf("Victoire de l'utilisateur. Nombre de tentatives: %d%n", i);
+                System.out.printf("Victoire de l'utilisateur. Nombre de tentatives: %d%n", i + 1);
                 System.out.println();
                 win = true;
                 break;
             } else if (this.gagnerPartie(cluesIa)) {
                 if(this.modeDev){
-                    LOGGER.debug(String.format("Victoire de l'intelligence artificielle. Nombre de tentatives: %d", i));
+                    LOGGER.debug(String.format("Victoire de l'intelligence artificielle. Nombre de tentatives: %d", i + 1));
                 }
-                System.out.printf("Victoire de l'intelligence artificielle. Nombre de tentatives: %d%n", i);
+                System.out.printf("Victoire de l'intelligence artificielle. Nombre de tentatives: %d%n", i + 1);
                 System.out.println();
                 win = true;
                 break;
