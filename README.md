@@ -8,6 +8,19 @@ Rappel des spécifications:
  - Défenseur : L'utilisateur définit une combinaison que le système tente de deviner.
  - Duel : L'utilisateur et le système jouent tour à tour afin de deviner une combinaison définie aléatoirement 
 
+### Livrables
+Code source: 
+```
+p3/src/main/java/com/hogwai/p3
+``` 
+Fichier de configuration: 
+```
+p3/src/main/resources/config.properties
+``` 
+Fichier README: 
+```
+p3/README.md
+``` 
 ## Prise en main
 
 Ces instructions vont vous permettre de télécharger une copie des fichiers sources et les exécuter sur votre machine locale.
@@ -82,7 +95,7 @@ App.log
 ```
 
 ### JavaDoc
-La JavaDoc est accessible en cliquant ici: [Documentation](https://hogwai.github.io/P3/javadoc/)
+La JavaDoc est accessible via le lien suivant: [Documentation](https://hogwai.github.io/P3/javadoc/)
 
 ## Réalisé avec
 
