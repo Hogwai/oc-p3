@@ -188,7 +188,6 @@ public class JeuContext {
      * Affiche le menu selon le mode choisi
      */
     public void afficherMenu() {
-        System.out.printf("#=== Lancement: Mécanisme de recherche d'une combinaison à %s chiffres ===#%n", this.nbCombinaison);
         System.out.println();
         LOGGER.info("Affichage du menu");
         this.strategyMode.afficherMenuMode();
@@ -198,6 +197,7 @@ public class JeuContext {
      * Demande à l'utilisateur de choisir un mode et initialise la stratégie
      */
     public void demanderChoixMode() {
+        System.out.printf("#=== Lancement: Mécanisme de recherche d'une combinaison à %s chiffres ===#%n", this.nbCombinaison);
         LOGGER.info("Choix du mode");
         Scanner sc;
         boolean checkSaisie;
