@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 /**
  * Classe gestionnaire des intéractions avec l'utilisateur
  */
-public class UtilisateurHandler extends Joueur {
+public class UtilisateurHandler extends AbstractHandler {
     /**
      * Logger
      * @see LogManager#getLogger(String)

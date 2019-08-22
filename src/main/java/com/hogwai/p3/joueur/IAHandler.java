@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Classe gestionnaire de l'intelligence artificielle
  */
-public class IAHandler extends Joueur {
+public class IAHandler extends AbstractHandler {
 
     /**
      * Constructeur par défaut
@@ -19,7 +19,7 @@ public class IAHandler extends Joueur {
      * @param combinaison Combinaison à comparer avec celle de l'IA
      * @return Chaîne de caractère contenant les indices générés par l'IA
      * @see IAHandler#getClues(int, int)
-     * @see Joueur#getIntFromList(LinkedList)
+     * @see AbstractHandler#getIntFromList(LinkedList)
      */
     public List<String> compareCombiTo(int combinaison) {
         return this.getClues(this.getIntFromList(this.combinaison), combinaison);
@@ -41,7 +41,7 @@ public class IAHandler extends Joueur {
 
     /**
      * Génère une combinaison aléatoire et la stocke dans l'attribut combinaison
-     * @see Joueur#combinaison
+     * @see AbstractHandler#combinaison
      */
     public void generateRandCombi() {
         this.combinaison = new LinkedList<>();
@@ -53,8 +53,8 @@ public class IAHandler extends Joueur {
     /**
      * Génère une combinaison aléatoire et la retourne
      * @return Combinaison générée aléatoirement
-     * @see Joueur#combinaison
-     * @see Joueur#getIntFromList(LinkedList)
+     * @see AbstractHandler#combinaison
+     * @see AbstractHandler#getIntFromList(LinkedList)
      */
     public Integer returnRandCombiInt(){
         LinkedList<Integer> listDigitsCombi = new LinkedList<>();
@@ -69,7 +69,7 @@ public class IAHandler extends Joueur {
      * @param solution Solution à comparer avec la combinaison
      * @param combinaison Combinaison à comparer avec la solution
      * @return Chaîne de caractère contenant les indices générés par l'IA
-     * @see Joueur#getListFromInt(int)
+     * @see AbstractHandler#getListFromInt(int)
      */
     public List<String> getClues(int solution, int combinaison) {
         List<String> result = new ArrayList<>();
