@@ -1,4 +1,7 @@
 # Mécanisme de recherche d’une combinaison à X chiffres
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f1984028eb3d4f2b85d413a7123d704e)](https://app.codacy.com/manual/Hogwai/P3?utm_source=github.com&utm_medium=referral&utm_content=Hogwai/P3&utm_campaign=Badge_Grade_Settings)
+
 Projet #3 du parcours "Développeur d'Application - Java"
 
 
