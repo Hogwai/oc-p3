@@ -106,10 +106,6 @@ La JavaDoc est accessible via le lien suivant: [Documentation](https://hogwai.gi
 * [Maven](https://maven.apache.org/) - Gestion des dépendances
 * [IntelliJ IDEA 2019](https://www.jetbrains.com/idea/) - Environnement de développement intégré
 
-## Auteur
-
-* **Lilian Wernert** - Hogwai
-
 ## Licence
 
 Voir [LICENSE.md](LICENSE.md) pour plus de détails.
